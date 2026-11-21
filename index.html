@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Dale Play - Companion App Oficial v1.3</title>
+  
+  <!-- PWA & Mobile Web App Meta -->
+  <meta name="theme-color" content="#030712">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Dale Play">
+  <link rel="manifest" href="manifest.json">
+<<<<<<< HEAD
+  
+  <!-- Iconos en Raíz (compatibilidad Android Chrome + iOS Safari) -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+=======
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+>>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- Tipografías Oficiales -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Quattrocento:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS & Lucide Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Lector QR HTML5 Camera Library -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <!-- EmailJS SDK para Envío Automático de Sugerencias -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <style>
+    :root {
+      --color-stripe-1: #fc7735;
+      --color-stripe-2: #fce01d;
+      --color-stripe-3: #31c8c9;
+      --color-stripe-4: #f8718a;
+      --color-stripe-5: #943b56;
+    }
+    body {
+      font-family: 'Quattrocento', Georgia, serif;
+      background-color: #030712;
+      color: #f8fafc;
+      overflow-x: hidden;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .font-display {
+      font-family: 'Big Shoulders Display', Impact, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .font-body {
+      font-family: 'Quattrocento', Georgia, serif;
+    }
+    /* Fondo Desgastado Retro */
+    .bg-grunge {
+      background-color: #05070f;
+      background-image: url('assets/fondo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+<<<<<<< HEAD
+    /* Banda Retro Lateral Izquierda (5 Colores Sellados) */
+=======
+    /* Banda Retro Lateral Izquierda */
+>>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
+    .retro-stripe-left {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 14px;
+      z-index: 40;
+      background: linear-gradient(
+        to right,
+        #943b56 0%, #943b56 20%,
+        #f8718a 20%, #f8718a 40%,
+        #31c8c9 40%, #31c8c9 60%,
+        #fce01d 60%, #fce01d 80%,
+        #fc7735 80%, #fc7735 100%
+      );
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.6);
+    }
+    /* Animación de giro del casete analógico */
+    @keyframes spin-cassette {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .spin-reel {
+      animation: spin-cassette 2.4s linear infinite;
+    }
+    .spin-paused {
+      animation-play-state: paused;
+    }
+    /* Pulsación del área superior del casete físico */
+    @keyframes pulse-top-cassette {
+      0%, 100% { border-color: rgba(49, 200, 201, 0.8); box-shadow: 0 0 25px rgba(49, 200, 201, 0.35); }
+      50% { border-color: rgba(252, 224, 29, 0.95); box-shadow: 0 0 40px rgba(252, 224, 29, 0.55); }
+    }
+    .top-cassette-active {
+      animation: pulse-top-cassette 1.8s infinite ease-in-out;
+    }
+    /* Animación de flecha indicadora hacia arriba */
+    @keyframes bounce-up {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .arrow-bounce-up {
+      animation: bounce-up 1.2s infinite ease-in-out;
+    }
+    /* Pulsación de cuenta atrás */
+    @keyframes countdown-pop {
+      0% { transform: scale(0.6); opacity: 0; }
+      50% { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .countdown-anim {
+      animation: countdown-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    /* Botones táctiles retro con relieve 3D */
+    .btn-3d {
+      transition: all 0.15s ease-in-out;
+      box-shadow: 0 5px 0 rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+      cursor: pointer;
+    }
+    .btn-3d:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+    /* Tarjetas ahumadas */
+    .retro-card {
+      background: rgba(18, 20, 32, 0.94);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+    }
+    #qr-video-container video {
+      object-fit: cover !important;
+      border-radius: 18px;
+      width: 100% !important;
+      height: 100% !important;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-black min-h-screen flex justify-center items-center p-0 m-0">
+  <!-- CONTENEDOR PRINCIPAL TIPO SMARTPHONE -->
+  <main class="relative w-full max-w-[430px] h-[100dvh] max-h-[920px] bg-grunge shadow-2xl overflow-hidden flex flex-col justify-between border-x border-slate-800">
+    
+    <!-- BANDA MULTICOLOR RETRO LATERAL IZQUIERDA -->
+    <div class="retro-stripe-left"></div>
+
+    <!-- REPRODUCTOR INVISIBLE DE YOUTUBE -->
+    <div id="youtube-player-container" class="hidden absolute -left-[9999px] -top-[9999px] pointer-events-none">
+      <div id="yt-player"></div>
+    </div>
+
+    <!-- CÁMARA FRONTAL INVISIBLE PARA SENSOR ÓPTICO DE OSCURIDAD -->
+    <video id="front-sensor-video" autoplay playsinline muted class="hidden absolute -left-[9999px] -top-[9999px] w-16 h-16 pointer-events-none"></video>
+    <canvas id="front-sensor-canvas" width="32" height="32" class="hidden absolute -left-[9999px] -top-[9999px] pointer-events-none"></canvas>
+
+    <!-- ======================================================== -->
+    <!-- 1. PANTALLA: PORTADA OFICIAL (SPLASH SCREEN)             -->
+    <!-- ======================================================== -->
+    <section id="screen-splash" class="app-screen absolute inset-0 z-30 flex flex-col justify-between p-6 pl-8 bg-cover bg-center" style="background-image: url('assets/splash-portada.jpg');">
+      <div class="flex items-center justify-between w-full z-10 pt-2">
+        <span class="px-3 py-1 rounded-full text-[11px] font-black tracking-wider bg-cyan-950/80 text-cyan-400 border border-cyan-500/30 uppercase">
+          VERSIÓN 1.3
+        </span>
+      </div>
+
+      <div class="flex-1"></div>
+
+      <div class="w-full flex flex-col items-center gap-3 z-10 pb-4">
+        <button onclick="goToScreen('screen-menu')" class="btn-3d w-full py-4 rounded-2xl bg-[#31c8c9] text-black font-display font-black text-2xl tracking-wider flex items-center justify-center gap-2 hover:bg-[#28b5b6] transition-colors">
+          <i data-lucide="play" class="w-6 h-6 fill-current"></i>
+          ENTRAR AL JUEGO
+        </button>
+        <span class="text-[10px] text-slate-300/70 font-mono tracking-widest uppercase">
+          © LUDYCO • EDICIÓN OFICIAL 2025
+        </span>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 2. PANTALLA: MENÚ PRINCIPAL                              -->
+    <!-- ======================================================== -->
+    <section id="screen-menu" class="app-screen hidden absolute inset-0 z-20 flex flex-col justify-between p-6 pl-9 bg-grunge overflow-y-auto no-scrollbar">
+      <div class="w-full flex justify-center pt-6 pb-2">
+        <img src="assets/dale-play.png" alt="Dale Play" class="h-28 max-h-32 object-contain drop-shadow-[0_0_20px_rgba(0,229,255,0.3)]">
+      </div>
+
+      <div class="w-full flex flex-col gap-3.5 my-auto">
+        <button onclick="goToScreen('screen-mode-select')" class="btn-3d w-full p-4 rounded-2xl bg-[#31c8c9] text-black flex items-center justify-between group">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-black/20 flex items-center justify-center">
+              <i data-lucide="camera" class="w-6 h-6 text-black"></i>
+            </div>
+            <div class="text-left">
+              <span class="font-display font-black text-2xl block text-black leading-none">ESCANEAR QR</span>
+              <span class="text-[11px] text-black/85 font-medium">COMENZAR RONDA MUSICAL</span>
+            </div>
+          </div>
+          <i data-lucide="arrow-right" class="w-6 h-6 text-black group-hover:translate-x-1 transition-transform"></i>
+        </button>
+
+        <button onclick="goToScreen('screen-instructions')" class="btn-3d w-full p-4 rounded-2xl bg-[#fc7735] text-white flex items-center justify-between group">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-black/20 flex items-center justify-center">
+              <i data-lucide="book-open" class="w-6 h-6 text-white"></i>
+            </div>
+            <div class="text-left">
+              <span class="font-display font-black text-2xl block text-white leading-none">INSTRUCCIONES</span>
+              <span class="text-[11px] text-white/90 font-medium">REGLAS OFICIALES Y MODOS</span>
+            </div>
+          </div>
+          <i data-lucide="arrow-right" class="w-6 h-6 text-white group-hover:translate-x-1 transition-transform"></i>
+        </button>
+
+        <button onclick="goToScreen('screen-settings')" class="btn-3d w-full p-4 rounded-2xl bg-[#fce01d] text-black flex items-center justify-between group">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-black/20 flex items-center justify-center">
+              <i data-lucide="settings" class="w-6 h-6 text-black"></i>
+            </div>
+            <div class="text-left">
+              <span class="font-display font-black text-2xl block text-black leading-none">AJUSTES</span>
+              <span class="text-[11px] text-black/80 font-medium">MODOS Y REDES</span>
+            </div>
+          </div>
+          <i data-lucide="arrow-right" class="w-6 h-6 text-black group-hover:translate-x-1 transition-transform"></i>
+        </button>
+      </div>
+
+      <div class="w-full flex flex-col items-center gap-1 pb-4 pt-1">
+        <span class="text-[10px] text-slate-400 font-mono uppercase tracking-wider">UN JUEGO CREADO POR</span>
+        <img src="assets/ludyco.png" alt="Ludyco" class="h-12 max-h-14 object-contain drop-shadow-md">
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- MODAL EMERGENTE UNIFICADO: GUÍA DE INSTALACIÓN PWA       -->
+<<<<<<< HEAD
+    <!-- SE ABRE DESDE EL BOTÓN DE INSTRUCCIONES                  -->
+=======
+    <!-- SE ABRE ÚNICAMENTE DESDE EL BOTÓN EN INSTRUCCIONES        -->
+>>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
+    <!-- ======================================================== -->
+    <div id="modal-install-guide" class="hidden absolute inset-0 z-50 bg-black/85 flex items-center justify-center p-4 pl-7">
+      <div class="retro-card w-full max-w-[340px] p-5 border-2 border-[#fce01d]/90 bg-slate-900/95 shadow-2xl flex flex-col gap-3.5 max-h-[90vh] overflow-y-auto no-scrollbar">
+        <div class="flex items-center justify-between border-b border-slate-700/80 pb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-[#fce01d] text-black flex items-center justify-center font-bold">
+              <i data-lucide="smartphone" class="w-5 h-5 stroke-[2.5]"></i>
+            </div>
+            <h3 class="font-display font-black text-xl text-[#fce01d] tracking-wide">INSTALAR APLICACIÓN</h3>
+          </div>
+          <button onclick="closeInstallModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center" aria-label="Cerrar">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <p class="text-xs text-slate-200 leading-snug text-left">
+          Te recomendamos seguir estos pasos para tener la app instalada y jugar en pantalla completa:
+        </p>
+
+        <!-- Pestañas dinámicas según plataforma -->
+        <div id="tabs-container" class="grid grid-cols-3 gap-1 p-1 rounded-xl bg-slate-800/80 border border-slate-700 text-[11px] font-bold">
+<<<<<<< HEAD
+=======
+          <!-- Renderizado dinámico vía renderInstallTabs() -->
+>>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
+        </div>
+
+        <!-- Contenedores de contenido de pestañas -->
+        <div id="guides-container" class="flex flex-col gap-2.5">
+          <!-- GUÍA EDGE -->
+          <div id="guide-edge" class="browser-guide-panel hidden flex flex-col gap-2.5">
+            <button class="btn-direct-install btn-3d w-full py-2.5 rounded-xl bg-[#31c8c9] text-black font-display font-black text-sm tracking-wider flex items-center justify-center gap-2" onclick="triggerDirectInstallPrompt()">
+              <i data-lucide="download" class="w-4 h-4 fill-current"></i>
+              <span>INSTALAR DIRECTAMENTE</span>
+            </button>
+            <div class="retro-card p-3 bg-slate-800/70 border border-cyan-500/30 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-cyan-950 text-cyan-400 border border-cyan-500/40 flex items-center justify-center shrink-0">
+                <i data-lucide="menu" class="w-5 h-5 stroke-[2.5]"></i>
+              </div>
+              <div class="text-left text-xs">
+                <span class="font-display font-black text-cyan-300 text-xs block">PASO 1</span>
+                <p class="text-slate-200">Toca el menú de tres líneas o puntos <span class="text-white font-bold">( ☰ o ··· )</span> en Edge.</p>
+              </div>
+            </div>
+            <div class="retro-card p-3 bg-slate-800/70 border border-cyan-500/30 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-amber-950 text-amber-400 border border-amber-500/40 flex items-center justify-center shrink-0">
+                <i data-lucide="plus-square" class="w-5 h-5 stroke-[2.5]"></i>
+              </div>
+              <div class="text-left text-xs">
+                <span class="font-display font-black text-amber-300 text-xs block">PASO 2</span>
+                <p class="text-slate-200">Selecciona <span class="text-amber-300 font-bold">"Agregar al teléfono"</span> o <span class="text-amber-300 font-bold">"Instalar app"</span>.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- GUÍA CHROME -->
+          <div id="guide-chrome" class="browser-guide-panel hidden flex flex-col gap-2.5">
+            <button class="btn-direct-install btn-3d w-full py-2.5 rounded-xl bg-[#31c8c9] text-black font-display font-black text-sm tracking-wider flex items-center justify-center gap-2" onclick="triggerDirectInstallPrompt()">
+              <i data-lucide="download" class="w-4 h-4 fill-current"></i>
+              <span>INSTALAR DIRECTAMENTE</span>
+            </button>
+            <div class="retro-card p-3 bg-slate-800/70 border border-cyan-500/30 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-cyan-950 text-cyan-400 border border-cyan-500/40 flex items-center justify-center shrink-0">
+                <i data-lucide="more-vertical" class="w-5 h-5 stroke-[2.5]"></i>
+              </div>
+              <div class="text-left text-xs">
+                <span class="font-display font-black text-cyan-300 text-xs block">PASO 1</span>
+                <p class="text-slate-200">Toca el menú <span class="text-white font-bold">( ⋮ )</span> en la esquina superior derecha.</p>
+              </div>
+            </div>
+            <div class="retro-card p-3 bg-slate-800/70 border border-cyan-500/30 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-amber-950 text-amber-400 border border-amber-500/40 flex items-center justify-center shrink-0">
+                <i data-lucide="plus-square" class="w-5 h-5 stroke-[2.5]"></i>
+              </div>
+              <div class="text-left text-xs">
+                <span class="font-display font-black text-amber-300 text-xs block">PASO 2</span>
+                <p class="text-slate-200">Pulsa en <span class="text-amber-300 font-bold">"Instalar aplicación"</span> o "Agregar a la pantalla principal".</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- GUÍA SAFARI (iOS) -->
+          <div id="guide-safari" class="browser-guide-panel hidden flex flex-col gap-2.5">
+            <div class="retro-card p-3 bg-slate-800/70 border border-cyan-500/30 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-cyan-950 text-cyan-400 border border-cyan-500/40 flex items-center justify-center shrink-0">
+                <i data-lucide="share" class="w-5 h-5 stroke-[2.5]"></i>
+              </div>
+              <div class="text-left text-xs">
+                <span class="font-display font-black text-cyan-300 text-xs block">PASO 1</span>
+                <p class="text-slate-200">Pulsa el botón <span class="text-white font-bold">Compartir</span> (el cuadrado con flecha hacia arriba).</p>
+              </div>
+            </div>
+            <div class="retro-card p-3 bg-slate-800/70 border border-cyan-500/30 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-amber-950 text-amber-400 border border-amber-500/40 flex items-center justify-center shrink-0">
+                <i data-lucide="plus-square" class="w-5 h-5 stroke-[2.5]"></i>
+              </div>
+              <div class="text-left text-xs">
+                <span class="font-display font-black text-amber-300 text-xs block">PASO 2</span>
+                <p class="text-slate-200">Desplaza hacia abajo y selecciona <span class="text-amber-300 font-bold">"Agregar a la pantalla de inicio"</span>.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- GUÍA OTROS (Mozilla, Brave, Opera) -->
+          <div id="guide-otros" class="browser-guide-panel hidden flex flex-col gap-2.5">
+            <button class="btn-direct-install btn-3d w-full py-2.5 rounded-xl bg-[#31c8c9] text-black font-display font-black text-sm tracking-wider flex items-center justify-center gap-2" onclick="triggerDirectInstallPrompt()">
+              <i data-lucide="download" class="w-4 h-4 fill-current"></i>
+              <span>INSTALAR DIRECTAMENTE</span>
+            </button>
+            <div class="retro-card p-3 bg-slate-800/70 border border-cyan-500/30 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-cyan-950 text-cyan-400 border border-cyan-500/40 flex items-center justify-center shrink-0">
+                <i data-lucide="menu" class="w-5 h-5 stroke-[2.5]"></i>
+              </div>
+              <div class="text-left text-xs">
+                <span class="font-display font-black text-cyan-300 text-xs block">MOZILLA • BRAVE • OPERA</span>
+                <p class="text-slate-200">Abre el menú principal <span class="text-white font-bold">( ☰ o ⋮ )</span> del navegador.</p>
+              </div>
+            </div>
+            <div class="retro-card p-3 bg-slate-800/70 border border-cyan-500/30 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-amber-950 text-amber-400 border border-amber-500/40 flex items-center justify-center shrink-0">
+                <i data-lucide="plus-square" class="w-5 h-5 stroke-[2.5]"></i>
+              </div>
+              <div class="text-left text-xs">
+                <span class="font-display font-black text-amber-300 text-xs block">FINALIZAR</span>
+                <p class="text-slate-200">Selecciona <span class="text-amber-300 font-bold">"Instalar"</span> o <span class="text-amber-300 font-bold">"Agregar a pantalla principal"</span>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="closeInstallModal()" class="btn-3d w-full py-3 rounded-xl bg-[#fce01d] text-black font-display font-black text-lg tracking-wider hover:bg-amber-300 transition-colors mt-1">
+          ¡ENTENDIDO, A JUGAR!
+        </button>
+        <button onclick="closeInstallModal()" class="text-xs text-slate-400 underline hover:text-white py-0.5">
+          Continuar en el navegador
+        </button>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 3. PANTALLA: MODO DE REPRODUCCIÓN (CARDS NEÓN)           -->
+    <!-- ======================================================== -->
+    <section id="screen-mode-select" class="app-screen hidden absolute inset-0 z-20 flex flex-col justify-between p-6 pl-9 bg-grunge">
+      <div class="flex items-center justify-between w-full pt-2">
+        <button onclick="goToScreen('screen-menu')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300">
+          <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <span class="font-display font-black text-[#fce01d] text-lg tracking-wider">MODO DE REPRODUCCIÓN</span>
+        <button onclick="stopMusicAndGo('screen-menu')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-white" title="Ir al Menú Principal">
+          <i data-lucide="home" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="text-center my-2">
+        <h2 class="font-display font-black text-3xl text-white tracking-wide">¿CÓMO QUIERES JUGAR?</h2>
+        <p class="text-xs text-slate-400 mt-1">Elige en qué punto exacto arrancará cada canción:</p>
+      </div>
+
+      <div class="flex flex-col gap-4 my-auto">
+        <div onclick="selectPlaybackMode('start')" class="retro-card p-5 border-2 border-[#31c8c9] cursor-pointer hover:border-cyan-300 transition-all relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-display font-black text-2xl text-cyan-300">DESDE EL INICIO</h3>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-950 text-cyan-400 border border-cyan-700">NORMAL (0:00)</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Empieza desde el segundo 0:00 para reconocer los compases iniciales o intro musical.
+          </p>
+          <div class="flex items-center text-cyan-400 text-xs font-bold gap-1 group-hover:translate-x-1 transition-transform">
+            <span>Seleccionar modo</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <div onclick="selectPlaybackMode('best')" class="retro-card p-5 border-2 border-[#f8718a] cursor-pointer hover:border-pink-400 transition-all relative overflow-hidden group">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-display font-black text-2xl text-pink-400">EN LA MEJOR PARTE</h3>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-pink-950 text-pink-400 border border-pink-700">ESTRIBILLO</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Salta directamente al coro o parte más icónica y reconocible del tema.
+          </p>
+          <div class="flex items-center text-pink-400 text-xs font-bold gap-1 group-hover:translate-x-1 transition-transform">
+            <span>Seleccionar modo</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full pb-2"></div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 4. PANTALLA: ESCÁNER QR CON CÁMARA TRASERA               -->
+    <!-- ======================================================== -->
+    <section id="screen-scan" class="app-screen hidden absolute inset-0 z-20 flex flex-col justify-between p-6 pl-9 bg-grunge">
+      <div class="flex items-center justify-between w-full pt-2">
+        <button onclick="stopCameraAndGo('screen-mode-select')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300">
+          <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <div class="text-center">
+          <span class="font-display font-black text-[#fce01d] text-xl tracking-wider block">ESCANEAR CARTA</span>
+          <span id=\"current-mode-label\" class=\"text-[11px] font-bold text-cyan-400 tracking-wider\">MODO: DESDE EL INICIO</span>
+        </div>
+        <button onclick="stopCameraAndGo('screen-menu')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-white" title="Ir al Menú Principal">
+          <i data-lucide="home" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="relative w-full aspect-square max-w-[310px] mx-auto my-auto rounded-2xl overflow-hidden border-2 border-slate-700 bg-black/60 shadow-[0_0_25px_rgba(0,0,0,0.8)]">
+        <div id="qr-video-container" class="w-full h-full"></div>
+        <div class="pointer-events-none absolute inset-0 border-2 border-transparent">
+          <div class="absolute top-2 left-2 w-8 h-8 border-t-4 border-l-4 border-cyan-400"></div>
+          <div class="absolute top-2 right-2 w-8 h-8 border-t-4 border-r-4 border-cyan-400"></div>
+          <div class="absolute bottom-2 left-2 w-8 h-8 border-b-4 border-l-4 border-cyan-400"></div>
+          <div class="absolute bottom-2 right-2 w-8 h-8 border-b-4 border-r-4 border-cyan-400"></div>
+        </div>
+        <div class="pointer-events-none absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-cyan-400/80 shadow-[0_0_8px_#00e5ff]"></div>
+        <div id="camera-loading-msg" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-black/70 z-10">
+          <i data-lucide="camera" class="w-10 h-10 text-cyan-400 animate-pulse mb-2"></i>
+          <p class="text-sm font-bold text-white">Iniciando cámara rápida...</p>
+          <p class="text-xs text-slate-400 mt-1">Apunta al código QR de la carta</p>
+        </div>
+      </div>
+
+      <div class="w-full text-center pb-4">
+        <p class="text-xs text-slate-400">Mantén el código QR centrado para escaneo instantáneo</p>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 5. PANTALLA: ¿TODOS LISTOS? / MODOS ADAPTATIVOS          -->
+    <!-- ======================================================== -->
+    <section id="screen-ready" class="app-screen hidden absolute inset-0 z-20 flex flex-col justify-between p-6 pl-9 bg-grunge">
+      <div class="flex items-center justify-between w-full pt-2">
+        <button onclick="stopMusicAndGo('screen-scan')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300">
+          <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <span class="px-3 py-1 rounded-full text-xs font-black bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 uppercase tracking-wider">
+          QR DETECTADO
+        </span>
+        <button onclick="stopMusicAndGo('screen-menu')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-white" title="Ir al Menú Principal">
+          <i data-lucide="home" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- VARIANTE 1: MODO CLÁSICO (BOTÓN GIGANTE EN PANTALLA) -->
+      <div id="ready-view-button" class="flex flex-col items-center justify-center my-auto">
+        <div class="w-24 h-24 rounded-full bg-[#181a24] border-2 border-[#fc7735] flex items-center justify-center shadow-[0_0_30px_rgba(252,119,53,0.4)] mb-5">
+          <svg class="w-12 h-12 text-[#9b87f5]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+          </svg>
+        </div>
+        <h2 class="font-display font-black text-4xl text-white tracking-wide text-center">¿TODOS LISTOS?</h2>
+        <p class="text-sm text-slate-300 text-center max-w-[280px] mt-2 leading-relaxed">
+          Coloquen la carta boca abajo en la mesa antes de empezar a escuchar.
+        </p>
+        <button onclick="startPlayback()" class="btn-3d w-48 h-48 rounded-full bg-gradient-to-b from-[#141622] to-[#0a0c14] border-4 border-[#fce01d] flex flex-col items-center justify-center gap-2 mt-8 shadow-[0_0_35px_rgba(252,224,29,0.4)] group active:scale-95 transition-transform">
+          <div class="w-0 h-0 border-y-[16px] border-y-transparent border-l-[28px] border-l-[#fce01d] ml-2 group-hover:scale-110 transition-transform"></div>
+          <span class="font-display font-black text-3xl text-white tracking-wider">¡DALE PLAY!</span>
+        </button>
+      </div>
+
+      <!-- VARIANTE 2: MODO SECRETO ÓPTICO (CASETE ARRIBA) -->
+      <div id="ready-view-cassette" class="hidden flex flex-col items-center justify-start h-full pt-1 pb-2 w-full gap-2">
+        <div onclick="handleScreenCovered()" class="w-full max-w-[280px] mx-auto pt-1 cursor-pointer">
+          <div class="relative w-full h-[145px] rounded-b-3xl border-x-2 border-b-2 border-dashed border-[#31c8c9] bg-gradient-to-b from-cyan-950/90 via-slate-900/90 to-slate-900/95 top-cassette-active flex flex-col items-center justify-between p-2 shadow-2xl">
+            <div class="flex items-center gap-1.5 py-1 px-3 bg-cyan-950/80 border border-cyan-400/50 rounded-full shadow-md mt-0.5">
+              <span class="text-[10px] font-black text-cyan-300 tracking-wider uppercase text-center">COLOCA LA PARTE INFERIOR DEL CASETE AQUÍ</span>
+            </div>
+            <div class="flex items-center gap-4 my-auto">
+              <div class="w-8 h-8 rounded-full border-2 border-dashed border-[#fce01d] flex items-center justify-center bg-black/60">
+                <div class="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
+              </div>
+              <div class="w-10 h-3 rounded bg-black/80 border border-slate-700 flex items-center justify-center">
+                <div class="w-6 h-1 bg-cyan-400/80 rounded-full"></div>
+              </div>
+              <div class="w-8 h-8 rounded-full border-2 border-dashed border-[#fce01d] flex items-center justify-center bg-black/60">
+                <div class="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
+              </div>
+            </div>
+            <div class="w-full py-1 rounded-xl bg-black/80 border border-cyan-500/30 text-center">
+              <span class="text-[10px] font-mono font-bold text-cyan-300 tracking-widest uppercase">CUBRE CÁMARA FRONTAL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full flex flex-col items-center gap-2 mt-1">
+          <div class="text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/90 border border-cyan-400/40 text-cyan-300 text-xs font-black uppercase tracking-widest mb-1 shadow">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#fce01d]"></i>
+              <span>MODO SECRETO ÓPTICO</span>
+            </div>
+            
+            <h2 class="font-display font-black text-3xl text-[#fce01d] tracking-wide flex items-center justify-center gap-2 leading-none mt-1">
+              <span>INSERTE EL CASETE AQUÍ</span>
+              <i data-lucide="arrow-up" class="w-6 h-6 text-[#fce01d] stroke-[3] arrow-bounce-up"></i>
+            </h2>
+            
+            <p class="text-xs text-slate-300 max-w-[300px] mx-auto leading-tight mt-1 font-medium">
+              Apoya el casete de cartón arriba para tapar la cámara frontal. Al retirarlo se revelará la canción.
+            </p>
+          </div>
+
+          <div id="front-sensor-status-badge" class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-slate-900/90 border border-slate-700/80 text-xs font-bold text-slate-200 shadow-lg mt-1">
+            <span id="front-sensor-dot" class="w-3 h-3 rounded-full bg-amber-400 animate-pulse"></span>
+            <span id="front-sensor-text" class="font-display text-sm tracking-wider">ESPERANDO CASETE ARRIBA...</span>
+          </div>
+
+          <button onclick="startPlayback()" class="text-xs text-slate-400 underline hover:text-white py-1">
+            ¿No puedes tapar la cámara? Toca aquí para reproducir
+          </button>
+        </div>
+      </div>
+
+      <!-- VARIANTE 3: MODO CONTRARRELOJ (CUENTA ATRÁS VISIBLE DE 3s) -->
+      <div id="ready-view-countdown" class="hidden flex flex-col items-center justify-center my-auto w-full text-center">
+        <span class="px-3.5 py-1 rounded-full text-xs font-black bg-amber-950/90 text-[#fce01d] border border-amber-500/40 uppercase tracking-widest mb-3">
+          MODO CONTRARRELOJ ACTIVO
+        </span>
+        <h2 class="font-display font-black text-3xl text-white tracking-wide">¡COLOCA LA CARTA BOCA ABAJO!</h2>
+        <p class="text-xs text-slate-300 max-w-[280px] mt-1.5 leading-relaxed">
+          La música arrancará automáticamente al finalizar la cuenta regresiva:
+        </p>
+        <div class="w-44 h-44 rounded-full border-4 border-[#31c8c9] bg-slate-900/90 flex flex-col items-center justify-center shadow-[0_0_40px_rgba(49,200,201,0.4)] my-6 relative overflow-hidden">
+          <span id="countdown-big-number" class="font-display font-black text-7xl text-[#fce01d] tracking-widest countdown-anim">3</span>
+          <span class="text-[11px] font-mono uppercase tracking-widest text-cyan-300 mt-1">SEGUNDOS</span>
+        </div>
+        <button onclick="skipCountdownAndStart()" class="text-xs text-slate-400 underline hover:text-white">
+          O pulsa aquí para empezar ya
+        </button>
+      </div>
+
+      <div class="w-full pb-2"></div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 6. PANTALLA: REPRODUCIENDO (CASETE / TEMPORIZADOR)       -->
+    <!-- ======================================================== -->
+    <section id="screen-playing" class="app-screen hidden absolute inset-0 z-20 flex flex-col justify-between p-6 pl-9 bg-grunge">
+      <div class="flex items-center justify-between w-full pt-2">
+        <button onclick="stopMusicAndGo('screen-ready')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300">
+          <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <span class="font-display font-black text-amber-400 text-xl tracking-wider flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+          REPRODUCIENDO
+        </span>
+        <button onclick="stopMusicAndGo('screen-menu')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-white" title="Ir al Menú Principal">
+          <i data-lucide="home" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- ZONA SUPERIOR RESERVADA PARA EL CASETE FÍSICO -->
+      <div id="playing-top-cassette-placeholder" class="hidden w-full max-w-[280px] mx-auto h-[110px] rounded-b-2xl border-x-2 border-b-2 border-dashed border-[#31c8c9]/50 bg-black/40 flex flex-col items-center justify-center p-2 text-center pointer-events-none mb-1">
+        <span class="text-[10px] font-mono text-cyan-300 tracking-wider">ZONA DEL CASETE FÍSICO</span>
+        <span class="text-[9px] text-slate-400">Coloca la parte inferior del casete aquí</span>
+      </div>
+
+      <!-- MITAD INFERIOR: CASETE VIRTUAL + CONTROLES -->
+      <div class="w-full flex flex-col items-center gap-2.5 my-auto">
+        <div id="playing-set-badge" class="w-full p-3 rounded-2xl bg-pink-600 text-white flex items-center justify-between shadow-lg">
+          <span id="playing-set-title" class="font-display font-black text-lg tracking-wide">DALE PLAY: CARA A</span>
+          <span id="playing-timer" class="px-3 py-1 rounded-lg bg-black/50 font-mono text-sm font-bold border border-white/10 tracking-widest">00:00</span>
+        </div>
+
+        <div class="w-full max-w-[330px] rounded-2xl bg-[#141622] border-2 border-slate-700/80 p-3.5 flex flex-col justify-between relative shadow-2xl overflow-hidden">
+          <div class="flex justify-between items-center text-[10px] font-mono text-slate-400 mb-1.5">
+            <span class="font-bold text-amber-400">SIDE A • STEREO</span>
+            <span id="playing-method-indicator" class="text-cyan-400 font-bold">SENSOR ÓPTICO FRONTAL</span>
+          </div>
+
+          <div class="w-full h-20 rounded-xl bg-black/90 border border-slate-800 flex items-center justify-around px-6 relative">
+            <div id="reel-left" class="w-12 h-12 rounded-full border-4 border-dashed border-[#fce01d] flex items-center justify-center spin-reel">
+              <div class="w-3.5 h-3.5 rounded-full bg-[#1e202e] border-2 border-white/20"></div>
+            </div>
+            <div class="w-10 h-4 bg-[#1b1d28] rounded border border-slate-700/60 flex items-center justify-center">
+              <div class="w-7 h-1 bg-black/80 rounded-full"></div>
+            </div>
+            <div id="reel-right" class="w-12 h-12 rounded-full border-4 border-dashed border-[#fce01d] flex items-center justify-center spin-reel">
+              <div class="w-3.5 h-3.5 rounded-full bg-[#1e202e] border-2 border-white/20"></div>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center mt-2.5 pt-2 border-t border-slate-800">
+            <button id="btn-forward-20" onclick="forward20Seconds()" class="px-3 py-1.5 rounded-xl bg-slate-800/90 border border-slate-600 text-xs font-bold text-slate-200 flex items-center gap-2 hover:text-cyan-300 active:scale-95 transition-all">
+              <i data-lucide="fast-forward" class="w-4 h-4 text-cyan-400 fill-current"></i>
+              <span>+20s Adelantar</span>
+              <span id="badge-forward-use" class="text-[9px] px-1.5 py-0.5 rounded bg-[#fce01d] text-black font-black">1 USO X RONDA</span>
+            </button>
+            <span class="text-[10px] text-slate-400 font-mono tracking-wider">DALE PLAY</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TERCIO INFERIOR -->
+      <div class="w-full flex flex-col items-center gap-2.5 pb-4">
+        <div id="timed-countdown-bar" class="hidden w-full retro-card p-3 border-amber-500/50 flex flex-col gap-2">
+          <div class="flex items-center justify-between text-xs font-bold">
+            <span class="text-amber-300 font-display text-lg tracking-wide flex items-center gap-1.5">
+              <i data-lucide="clock" class="w-4 h-4 text-[#fce01d]"></i>
+              TIEMPO PARA DESVELAR:
+            </span>
+            <span id="timed-seconds-left" class="font-mono text-xl font-black text-[#fce01d] px-2 py-0.5 rounded bg-black/60 border border-amber-500/40">
+              15s
+            </span>
+          </div>
+          <div class="w-full h-2.5 rounded-full bg-slate-800 overflow-hidden border border-slate-700">
+            <div id="timed-progress-fill" class="h-full bg-gradient-to-r from-cyan-400 via-amber-400 to-rose-500 transition-all duration-1000 ease-linear" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <div id="sensor-active-hint" class="hidden w-full text-center p-3.5 rounded-2xl bg-slate-900/95 border-2 border-cyan-400/80 flex flex-col items-center gap-1.5 shadow-[0_0_20px_rgba(49,200,201,0.25)] cursor-pointer" onclick="revealSong()">
+          <div class="flex items-center gap-2 text-cyan-300 font-display font-black text-2xl tracking-wide leading-none">
+            <span id="sensor-status-dot" class="w-3.5 h-3.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span id="sensor-hint-title">CASETE INSERTADO, NO MOVER</span>
+          </div>
+          <p id="sensor-hint-subtitle" class="text-xs text-amber-300 font-bold leading-snug">
+            RETIRA EL CASETE PARA REVELAR LA CANCIÓN
+          </p>
+        </div>
+
+        <div id="container-reveal-btn" class="w-full">
+          <button id="btn-reveal-song-main" onclick="revealSong()" class="btn-3d w-full py-4 rounded-2xl bg-[#31c8c9] text-black font-display font-black text-2xl tracking-wider flex items-center justify-center gap-2 hover:bg-[#28b5b6] transition-colors">
+            <span>MOSTRAR CANCIÓN</span>
+            <i data-lucide="eye" class="w-6 h-6 stroke-[2.5]"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 7. PANTALLA: CANCIÓN REVELADA                            -->
+    <!-- ======================================================== -->
+    <section id="screen-revealed" class="app-screen hidden absolute inset-0 z-20 flex flex-col justify-between p-6 pl-9 bg-grunge overflow-y-auto no-scrollbar pointer-events-auto">
+      <div class="w-full flex items-center justify-between pt-2">
+        <div class="w-10"></div>
+        <div class="flex flex-col items-center">
+          <div class="flex items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-amber-950/80 border border-amber-500/40 text-amber-300 text-xs font-bold uppercase mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#fce01d]"></span>
+            <span id="revealed-set-text">DALE PLAY: CARA A</span>
+          </div>
+          <img id="revealed-set-icon" src="assets/icono-cara-a.png" alt="Set Icon" class="h-10 max-h-12 object-contain drop-shadow">
+        </div>
+        <button onclick="stopMusicAndGo('screen-menu')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-white" title="Ir al Menú Principal">
+          <i data-lucide="home" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="retro-card p-5 border-slate-700/80 flex flex-col items-center text-center my-auto">
+        <div class="w-48 h-48 rounded-xl overflow-hidden shadow-2xl border-2 border-slate-700 mb-4 bg-slate-900 flex items-center justify-center relative">
+          <img id="revealed-album-art" src="" alt="Carátula" class="w-full h-full object-cover">
+          <div id="revealed-art-fallback" class="hidden absolute inset-0 flex items-center justify-center bg-slate-900 text-slate-500">
+            <i data-lucide="music" class="w-12 h-12"></i>
+          </div>
+        </div>
+        <h3 id="revealed-title" class="font-display font-black text-3xl text-white tracking-wide leading-tight">TÍTULO CANCIÓN</h3>
+        <p id="revealed-artist" class="text-sm font-bold text-cyan-400 mt-1 uppercase tracking-wider">ARTISTA</p>
+        <p id="revealed-movie" class="hidden text-xs text-amber-300 mt-1 font-semibold italic">Película: Toy Story</p>
+      </div>
+
+      <div class="w-full flex flex-col gap-3 pb-3 relative z-30 pointer-events-auto">
+        <div class="grid grid-cols-2 gap-3 w-full">
+          <button id="btn-toggle-pause" onclick="togglePlayback()" class="btn-3d py-3.5 px-3 rounded-2xl bg-[#31c8c9] text-black font-display font-black text-lg tracking-wider flex items-center justify-center gap-1.5 cursor-pointer">
+            <i id="icon-pause-btn" data-lucide="pause" class="w-5 h-5 fill-current"></i>
+            <span id="text-pause-btn">PAUSAR</span>
+          </button>
+          
+          <button onclick="stopMusicAndGo('screen-mode-select')" class="btn-3d py-3.5 px-3 rounded-2xl bg-[#fc7735] text-white font-display font-black text-lg tracking-wider flex items-center justify-center gap-1.5 cursor-pointer">
+            <span>SIGUIENTE</span>
+            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+          </button>
+        </div>
+        <button onclick="stopMusicAndGo('screen-menu')" class="btn-3d w-full py-3 rounded-2xl bg-slate-800 text-slate-300 font-display font-bold text-lg tracking-wider hover:text-white cursor-pointer">
+          VOLVER AL MENÚ
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 8. PANTALLA: ERROR DE LECTURA / QR INVÁLIDO              -->
+    <!-- ======================================================== -->
+    <section id="screen-invalid" class="app-screen hidden absolute inset-0 z-20 flex flex-col justify-between p-6 pl-9 bg-grunge text-center">
+      <div class="flex items-center justify-between w-full pt-2">
+        <button onclick="stopCameraAndGo('screen-menu')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300">
+          <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <span class="font-display font-black text-red-500 text-xl tracking-wider">ERROR DE LECTURA</span>
+        <button onclick="stopCameraAndGo('screen-menu')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-white" title="Ir al Menú Principal">
+          <i data-lucide="home" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="flex flex-col items-center justify-center my-auto">
+        <div class="w-24 h-24 rounded-2xl bg-red-950/60 border-2 border-red-500/80 flex items-center justify-center shadow-[0_0_25px_rgba(239,68,68,0.3)] mb-6">
+          <span class="font-display font-black text-5xl text-red-400 tracking-wider">:(</span>
+        </div>
+        <h2 class="font-display font-black text-3xl text-white tracking-wide">QR NO RECONOCIDO</h2>
+        <p class="text-xs text-slate-300 max-w-[280px] mt-2 leading-relaxed">
+          El código escaneado no pertenece a una carta de Dale Play o no pudimos abrir el enlace de reproducción.
+        </p>
+      </div>
+
+      <div class="w-full flex flex-col gap-3 pb-4">
+        <button onclick="goToScreen('screen-scan')" class="btn-3d w-full py-4 rounded-2xl bg-[#fc7735] text-white font-display font-black text-2xl tracking-wider flex items-center justify-center gap-2">
+          <span>VOLVER A ESCANEAR</span>
+          <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+        </button>
+        <button onclick="goToScreen('screen-menu')" class="text-xs text-slate-400 font-bold hover:text-white py-1">
+          Ir al Inicio
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 9. PANTALLA: INSTRUCCIONES OFICIALES                     -->
+    <!-- ======================================================== -->
+    <section id="screen-instructions" class="app-screen hidden absolute inset-0 z-20 flex flex-col justify-between p-6 pl-9 bg-grunge overflow-y-auto no-scrollbar">
+      <div class="flex items-center justify-between w-full pt-2">
+        <button onclick="goToScreen('screen-menu')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300">
+          <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <span class="font-display font-black text-[#fc7735] text-xl tracking-wider">REGLAS OFICIALES</span>
+        <button onclick="goToScreen('screen-menu')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-white" title="Ir al Menú Principal">
+          <i data-lucide="home" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-3 my-auto py-2">
+        <div class="retro-card p-4">
+          <div class="flex items-center gap-2.5 mb-1.5">
+            <span class="w-6 h-6 rounded-full bg-[#fce01d] text-black font-display font-black text-sm flex items-center justify-center">1</span>
+            <h4 class="font-display font-black text-lg text-white">EL TURNO</h4>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            El jugador en turno toma una carta del mazo sin ver el frente y escanea el código QR con esta aplicación.
+          </p>
+        </div>
+
+        <div class="retro-card p-4">
+          <div class="flex items-center gap-2.5 mb-1.5">
+            <span class="w-6 h-6 rounded-full bg-[#31c8c9] text-black font-display font-black text-sm flex items-center justify-center">2</span>
+            <h4 class="font-display font-black text-lg text-white">¡DALE PLAY!</h4>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Presiona el botón gigante, apoya el casete arriba o usa el temporizador contrarreloj para escuchar la canción oculta.
+          </p>
+        </div>
+
+        <div class="retro-card p-4">
+          <div class="flex items-center gap-2.5 mb-1.5">
+            <span class="w-6 h-6 rounded-full bg-[#f8718a] text-white font-display font-black text-sm flex items-center justify-center">3</span>
+            <h4 class="font-display font-black text-lg text-white">ORDEN CRONOLÓGICO</h4>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Ubica la carta en tu línea de tiempo: ¿es anterior o posterior a las canciones que ya tienes en mesa?
+          </p>
+        </div>
+
+        <div class="retro-card p-4">
+          <div class="flex items-center gap-2.5 mb-1.5">
+            <span class="w-6 h-6 rounded-full bg-[#fc7735] text-black font-display font-black text-sm flex items-center justify-center">4</span>
+            <h4 class="font-display font-black text-lg text-white">REGLAS EXTRA</h4>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Reglas completas y más modos de juego en el Reglamento Oficial dentro de la caja.
+          </p>
+        </div>
+
+<<<<<<< HEAD
+        <!-- 5. TIP DE EXPERIENCIA: INSTALACIÓN PWA (SE OCULTA EN APP INSTALADA) -->
+=======
+        <!-- 5. TIP DE EXPERIENCIA: INSTALACIÓN PWA -->
+>>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
+        <div id="instructions-install-card" class="retro-card p-4 border border-[#31c8c9]/50 bg-gradient-to-br from-slate-900/90 to-cyan-950/40">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-4 h-4 text-[#31c8c9]"></i>
+              <h4 class="font-display font-black text-lg text-cyan-300">TIP: MEJOR EXPERIENCIA</h4>
+            </div>
+            <span class="text-[9px] px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-400 font-bold border border-cyan-500/40 uppercase">Recomendado</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Instala la app en tu teléfono para jugar a pantalla completa, sin barras molestas del navegador y con respuesta táctil instantánea.
+          </p>
+          <button onclick="openInstallModal()" class="btn-3d w-full py-2.5 rounded-xl bg-[#31c8c9] text-black font-display font-black text-sm tracking-wider flex items-center justify-center gap-2 hover:bg-[#28b5b6] transition-colors">
+            <i data-lucide="download" class="w-4 h-4 stroke-[2.5]"></i>
+            <span>INSTALAR EN PANTALLA DE INICIO</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="w-full pb-3">
+        <button onclick="goToScreen('screen-menu')" class="btn-3d w-full py-3.5 rounded-2xl bg-[#fc7735] text-white font-display font-black text-xl tracking-wider">
+          ¡ENTENDIDO, A JUGAR!
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 10. PANTALLA: AJUSTES (3 MODOS: BOTÓN, CASETE Y RELOJ)   -->
+    <!-- ======================================================== -->
+    <section id="screen-settings" class="app-screen hidden absolute inset-0 z-20 flex flex-col justify-between p-6 pl-9 bg-grunge overflow-y-auto no-scrollbar">
+      <div class="flex items-center justify-between w-full pt-2">
+        <button onclick="goToScreen('screen-menu')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300">
+          <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <span class="font-display font-black text-[#fce01d] text-xl tracking-wider">CONFIGURACIÓN</span>
+        <button onclick="goToScreen('screen-menu')" class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-white" title="Ir al Menú Principal">
+          <i data-lucide="home" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-4 my-auto py-2">
+        <!-- SECCIÓN: MÉTODO DE REVELACIÓN (3 MODALIDADES) -->
+        <div class="retro-card p-4 border border-[#fce01d]/30 flex flex-col gap-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="shield" class="w-4 h-4 text-[#fce01d]"></i>
+            <h4 class="font-display font-black text-lg text-[#fce01d] leading-none">MÉTODO DE REVELACIÓN</h4>
+          </div>
+          <p class="text-xs text-slate-400 leading-tight">¿Cómo deseas reproducir y desvelar la información?</p>
+          
+          <div class="flex flex-col gap-2.5">
+            <!-- Modalidad 1: Pulsar botón clásico -->
+            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-800/60 border border-slate-700/60 cursor-pointer hover:border-cyan-400 transition-colors">
+              <div class="text-left pr-2">
+                <span class="text-xs text-slate-200 font-bold block">1. Pulsar botón en pantalla</span>
+                <span class="text-[10px] text-slate-400">Botón clásico ¡Dale Play! y botón Mostrar Canción</span>
+              </div>
+              <input type="radio" name="secret_mode" value="button" checked onchange="updateSecretModeSetting('button')" class="accent-amber-400 w-4 h-4">
+            </label>
+
+            <!-- Modalidad 2: Tapar la cámara delantera con casete arriba -->
+            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-800/60 border border-slate-700/60 cursor-pointer hover:border-amber-400 transition-colors">
+              <div class="text-left pr-2">
+                <span class="text-xs text-amber-300 font-bold block">2. Inserte el casete arriba</span>
+                <span class="text-[10px] text-slate-400">Coloca la parte inferior del casete aquí • 0.5s revelado</span>
+              </div>
+              <input type="radio" name="secret_mode" value="cassette" onchange="updateSecretModeSetting('cassette')" class="accent-amber-400 w-4 h-4">
+            </label>
+
+            <!-- Modalidad 3: Modo Contrarreloj -->
+            <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700/60 flex flex-col gap-2.5">
+              <label class="flex items-center justify-between cursor-pointer">
+                <div class="text-left pr-2">
+                  <span class="text-xs text-[#31c8c9] font-bold block">3. Temporizador Contrarreloj</span>
+                  <span class="text-[10px] text-slate-400">Cuenta atrás de 3s al escanear y revelado automático por tiempo</span>
+                </div>
+                <input type="radio" name="secret_mode" value="timed" onchange="updateSecretModeSetting('timed')" class="accent-cyan-400 w-4 h-4">
+              </label>
+
+              <div id="timed-seconds-selector" class="pt-2 border-t border-slate-700/80 flex items-center justify-between">
+                <span class="text-[11px] font-bold text-slate-300">Tiempo de ronda:</span>
+                <div class="flex items-center gap-1.5">
+                  <button type="button" onclick="setRoundDuration(10)" id="btn-sec-10" class="px-2.5 py-1 rounded-lg text-xs font-bold font-mono transition-all border border-slate-600 bg-slate-800 text-slate-300">10s</button>
+                  <button type="button" onclick="setRoundDuration(15)" id="btn-sec-15" class="px-2.5 py-1 rounded-lg text-xs font-bold font-mono transition-all border border-cyan-400 bg-cyan-950 text-cyan-300">15s</button>
+                  <button type="button" onclick="setRoundDuration(20)" id="btn-sec-20" class="px-2.5 py-1 rounded-lg text-xs font-bold font-mono transition-all border border-slate-600 bg-slate-800 text-slate-300">20s</button>
+                  <button type="button" onclick="setRoundDuration(30)" id="btn-sec-30" class="px-2.5 py-1 rounded-lg text-xs font-bold font-mono transition-all border border-slate-600 bg-slate-800 text-slate-300">30s</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORMULARIO SUGERENCIAS EMAILJS -->
+        <div class="retro-card p-4 border-cyan-500/30">
+          <div class="flex items-center gap-2 mb-1">
+            <i data-lucide="message-square" class="w-4 h-4 text-cyan-400"></i>
+            <h4 class="font-display font-black text-lg text-cyan-400 leading-none">¿ERRORES O SUGERENCIAS?</h4>
+          </div>
+          <p class="text-[11px] text-slate-400 mb-2 leading-tight">Envíanos tus comentarios para mejorar el juego:</p>
+          
+          <textarea id="feedback-text" rows="3" placeholder="Escribe aquí tu duda, error de canción o sugerencia..." class="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 resize-none font-body"></textarea>
+          
+          <button id="feedback-btn" onclick="sendFeedbackEmailJS()" class="btn-3d w-full mt-2 py-2 rounded-xl bg-[#31c8c9] text-black font-display font-black text-sm tracking-wider flex items-center justify-center gap-1.5 hover:bg-[#28b5b6]">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            <span>ENVIAR SUGERENCIA</span>
+          </button>
+          <p id="feedback-status" class="hidden text-[10px] text-center mt-1.5 font-bold"></p>
+        </div>
+
+        <!-- REDES SOCIALES -->
+        <div class="retro-card p-4 text-center">
+          <p class="text-xs font-bold text-slate-300 mb-1">¡SÍGUENOS EN NUESTRAS REDES SOCIALES!</p>
+          <p class="font-display font-black text-lg text-cyan-400 mb-3 tracking-wider">@Ludyco.Bo</p>
+          <div class="grid grid-cols-3 gap-2">
+            <a href="https://facebook.com/Ludyco.Bo" target="_blank" rel="noopener noreferrer" class="py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:text-white transition-colors">Facebook</a>
+            <a href="https://instagram.com/Ludyco.Bo" target="_blank" rel="noopener noreferrer" class="py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:text-white transition-colors">Instagram</a>
+            <a href="https://tiktok.com/@ludyco.bo" target="_blank" rel="noopener noreferrer" class="py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:text-white transition-colors">TikTok</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full pb-3">
+        <button onclick="goToScreen('screen-menu')" class="btn-3d w-full py-3.5 rounded-2xl bg-[#fce01d] text-black font-display font-black text-xl tracking-wider">
+          GUARDAR Y REGRESAR
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- CATÁLOGO OFICIAL DE CANCIONES -->
+  <script src="songs.js?v=1.3"></script>
+
+  <!-- SCRIPT MAESTRO DE NAVEGACIÓN, CÁMARAS Y AUDIO -->
+  <script>
+    if (window.lucide) lucide.createIcons();
+
+    // ========================================================
+    // 1. DETECCIÓN DE ENTORNO E INSTALACIÓN PWA
+    // ========================================================
+    const APP_VERSION = '1.3';
+
+    function isRunningOnIos() {
+      const ua = window.navigator.userAgent;
+      return /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    }
+
+    function isAppAlreadyInstalled() {
+<<<<<<< HEAD
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+      const isIosStandalone = ('standalone' in window.navigator && window.navigator.standalone === true);
+      const isAndroidApp = document.referrer && document.referrer.includes('android-app://');
+      const wasInstalled = localStorage.getItem('daleplay_app_installed') === 'true';
+      return isStandalone || isIosStandalone || isAndroidApp || wasInstalled;
+    }
+
+    function checkInstallCardVisibility() {
+      const card = document.getElementById('instructions-install-card');
+      if (!card) return;
+      if (isAppAlreadyInstalled()) {
+        card.classList.add('hidden');
+      } else {
+        card.classList.remove('hidden');
+      }
+    }
+
+=======
+      return ('standalone' in window.navigator && window.navigator.standalone === true) || 
+             window.matchMedia('(display-mode: standalone)').matches ||
+             document.referrer.includes('android-app://');
+    }
+
+>>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
+    let deferredPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const directButtons = document.querySelectorAll('.btn-direct-install');
+      directButtons.forEach(btn => btn.classList.remove('opacity-60'));
+    });
+
+    window.addEventListener('appinstalled', () => {
+      deferredPrompt = null;
+<<<<<<< HEAD
+      localStorage.setItem('daleplay_app_installed', 'true');
+      closeInstallModal();
+      checkInstallCardVisibility();
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Limpieza de caché al cambiar de versión
+=======
+      closeInstallModal();
+      sessionStorage.setItem('daleplay_install_dismissed', 'true');
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Limpieza agresiva de caché al cambiar de versión
+>>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
+      const lastVersion = localStorage.getItem('daleplay_installed_version');
+      if (lastVersion !== APP_VERSION) {
+        if ('caches' in window) {
+          caches.keys().then((names) => {
+            names.forEach((name) => {
+              if (!name.includes(APP_VERSION)) {
+                caches.delete(name);
+              }
+            });
+          });
+        }
+        localStorage.setItem('daleplay_installed_version', APP_VERSION);
+      }
+
+      // Cargar modo de revelación guardado
+      const savedMode = localStorage.getItem('daleplay_secret_mode') || 'button';
+      AppState.secretMode = savedMode;
+      const radio = document.querySelector(`input[name="secret_mode"][value="${savedMode}"]`);
+      if (radio) radio.checked = true;
+
+      // Cargar duración contrarreloj guardada
+      const savedDuration = parseInt(localStorage.getItem('daleplay_round_duration') || '15', 10);
+      setRoundDuration(savedDuration);
+<<<<<<< HEAD
+
+      // Comprobar visibilidad de la tarjeta de instalación
+      checkInstallCardVisibility();
+=======
+>>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
+    });
+
+    // ========================================================
+    // GUÍA DE INSTALACIÓN DINÁMICA: ANDROID VS IOS
+    // ========================================================
+    function renderInstallTabs() {
+      const container = document.getElementById('tabs-container');
+      if (!container) return;
+      const isIos = isRunningOnIos();
+
+      if (isIos) {
+        container.className = 'grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-800/80 border border-slate-700 text-[11px] font-bold';
+        container.innerHTML = `
+          <button id="tab-safari" onclick="switchBrowserTab('safari')" class="py-1.5 rounded-lg bg-[#31c8c9] text-black font-display font-black tracking-wide transition-all">SAFARI</button>
+          <button id="tab-chrome" onclick="switchBrowserTab('chrome')" class="py-1.5 rounded-lg text-slate-300 hover:text-white font-display font-black tracking-wide transition-all">CHROME</button>
+          <button id="tab-edge" onclick="switchBrowserTab('edge')" class="py-1.5 rounded-lg text-slate-300 hover:text-white font-display font-black tracking-wide transition-all">EDGE</button>
+          <button id="tab-otros" onclick="switchBrowserTab('otros')" class="py-1.5 rounded-lg text-slate-300 hover:text-white font-display font-black tracking-wide transition-all">OTROS</button>
+        `;
+        document.querySelectorAll('.btn-direct-install').forEach(btn => btn.classList.add('hidden'));
+      } else {
+        container.className = 'grid grid-cols-3 gap-1 p-1 rounded-xl bg-slate-800/80 border border-slate-700 text-[11px] font-bold';
+        container.innerHTML = `
+          <button id="tab-edge" onclick="switchBrowserTab('edge')" class="py-1.5 rounded-lg bg-[#31c8c9] text-black font-display font-black tracking-wide transition-all">EDGE</button>
+          <button id="tab-chrome" onclick="switchBrowserTab('chrome')" class="py-1.5 rounded-lg text-slate-300 hover:text-white font-display font-black tracking-wide transition-all">CHROME</button>
+          <button id="tab-otros" onclick="switchBrowserTab('otros')" class="py-1.5 rounded-lg text-slate-300 hover:text-white font-display font-black tracking-wide transition-all">OTROS</button>
+        `;
+        document.querySelectorAll('.btn-direct-install').forEach(btn => btn.classList.remove('hidden'));
+      }
+    }
+
+    function openInstallModal() {
+      const modal = document.getElementById('modal-install-guide');
+      if (!modal) return;
+      renderInstallTabs();
+      modal.classList.remove('hidden');
+
+      const ua = navigator.userAgent;
+      const isIos = isRunningOnIos();
+
+      if (isIos) {
+        if (ua.includes('EdgiOS')) switchBrowserTab('edge');
+        else if (ua.includes('CriOS')) switchBrowserTab('chrome');
+        else if (ua.includes('FxiOS') || ua.includes('Brave') || ua.includes('OPiOS')) switchBrowserTab('otros');
+        else switchBrowserTab('safari');
+      } else {
+        if (ua.includes('Edg/')) switchBrowserTab('edge');
+        else if (ua.includes('Firefox') || ua.includes('Opera') || ua.includes('SamsungBrowser') || ua.includes('Brave')) switchBrowserTab('otros');
+        else switchBrowserTab('chrome');
+      }
+      if (window.lucide) lucide.createIcons();
+<<<<<<< HEAD
+    }
+
+    function closeInstallModal() {
+      const modal = document.getElementById('modal-install-guide');
+      if (modal) modal.classList.add('hidden');
+    }
+
+=======
+    }
+
+    function closeInstallModal() {
+      const modal = document.getElementById('modal-install-guide');
+      if (modal) modal.classList.add('hidden');
+      sessionStorage.setItem('daleplay_install_dismissed', 'true');
+    }
+
+>>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
+    function switchBrowserTab(target) {
+      const allTabs = ['safari', 'chrome', 'edge', 'otros'];
+      allTabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        const panel = document.getElementById(`guide-${t}`);
+        if (btn) {
+          if (t === target) {
+            btn.className = 'py-1.5 rounded-lg bg-[#31c8c9] text-black font-display font-black tracking-wide transition-all';
+          } else {
+            btn.className = 'py-1.5 rounded-lg text-slate-300 hover:text-white font-display font-black tracking-wide transition-all';
+          }
+        }
+        if (panel) {
+          if (t === target) {
+            panel.classList.remove('hidden');
+          } else {
+            panel.classList.add('hidden');
+          }
+        }
+      });
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function triggerDirectInstallPrompt() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+<<<<<<< HEAD
+            localStorage.setItem('daleplay_app_installed', 'true');
+            closeInstallModal();
+            checkInstallCardVisibility();
+=======
+            closeInstallModal();
+>>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
+          }
+          deferredPrompt = null;
+        });
+      } else {
+        alert('Para instalar directamente:\n\nToca el menú (⋮ o ☰) de tu navegador y selecciona "Instalar aplicación" o "Agregar al teléfono".');
+      }
+    }
+
+    // ==========================================
+    // 2. CONFIGURACIÓN EMAILJS (OFICIAL LUDYCO)
+    // ==========================================
+    const EMAILJS_PUBLIC_KEY = 'Cdybynlo1ZY8QA7FV';
+    const EMAILJS_SERVICE_ID = 'service_cxgvecp';
+    const EMAILJS_TEMPLATE_ID = 'template_bihjjv9';
+    if (window.emailjs) {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+
+    function sendFeedbackEmailJS() {
+      const textarea = document.getElementById('feedback-text');
+      const btn = document.getElementById('feedback-btn');
+      const status = document.getElementById('feedback-status');
+      const message = textarea.value.trim();
+
+      if (!message) {
+        status.textContent = 'Por favor escribe tu comentario antes de enviar.';
+        status.className = 'text-[10px] text-center mt-1.5 font-bold text-amber-400 block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span>ENVIANDO...</span>';
+      status.textContent = 'Conectando con el servidor de correo...';
+      status.className = 'text-[10px] text-center mt-1.5 font-bold text-slate-400 block';
+
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        message: message,
+        to_email: 'ludyco.juegos@gmail.com',
+        app_name: 'Dale Play Companion WebApp',
+        date: new Date().toLocaleString()
+      }).then(() => {
+        status.textContent = '¡Gracias! Tu sugerencia se envió con éxito.';
+        status.className = 'text-[10px] text-center mt-1.5 font-bold text-emerald-400 block';
+        textarea.value = '';
+        btn.disabled = false;
+        btn.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5"></i><span>ENVIADO</span>';
+        if (window.lucide) lucide.createIcons();
+      }).catch((err) => {
+        console.error('Error al enviar con EmailJS:', err);
+        status.textContent = 'Error al enviar. Inténtalo más tarde.';
+        status.className = 'text-[10px] text-center mt-1.5 font-bold text-rose-400 block';
+        btn.disabled = false;
+        btn.innerHTML = '<span>REINTENTAR ENVÍO</span>';
+      });
+    }
+
+    // ==========================================
+    // 3. GESTOR DE ESTADO DE LA APLICACIÓN
+    // ==========================================
+    const AppState = {
+      selectedMode: 'start',
+      secretMode: 'button',
+      roundDuration: 15,
+      opticalDarkThreshold: 32,
+      opticalLightThreshold: 44,
+      currentSong: null,
+      forwardUsedThisRound: false,
+      isPlaying: false,
+      playbackSeconds: 0,
+      timerInterval: null,
+      roundRemainingSeconds: 15,
+      countdown3sVal: 3,
+      countdown3sInterval: null,
+      html5QrCode: null,
+      pendingSeekTime: null,
+      isCovered: false,
+      frontStream: null,
+      frontSensorInterval: null,
+      coverTimer: null,
+      uncoverTimer: null,
+      activeScreen: 'screen-splash'
+    };
+
+    function updateSecretModeSetting(mode) {
+      AppState.secretMode = mode;
+      localStorage.setItem('daleplay_secret_mode', mode);
+      if (mode !== 'cassette') {
+        stopFrontOpticalSensor();
+      }
+    }
+
+    function setRoundDuration(sec) {
+      AppState.roundDuration = sec;
+      localStorage.setItem('daleplay_round_duration', sec);
+      [10, 15, 20, 30].forEach(s => {
+        const btn = document.getElementById(`btn-sec-${s}`);
+        if (!btn) return;
+        if (s === sec) {
+          btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold font-mono transition-all border border-cyan-400 bg-cyan-950 text-cyan-300';
+        } else {
+          btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold font-mono transition-all border border-slate-600 bg-slate-800 text-slate-300';
+        }
+      });
+    }
+
+    function goToScreen(screenId) {
+      AppState.activeScreen = screenId;
+      document.querySelectorAll('.app-screen').forEach(s => s.classList.add('hidden'));
+      const target = document.getElementById(screenId);
+      if (target) {
+        target.classList.remove('hidden');
+      }
+
+      clearTimeout(AppState.coverTimer);
+      clearTimeout(AppState.uncoverTimer);
+      clearInterval(AppState.countdown3sInterval);
+
+<<<<<<< HEAD
+      if (screenId === 'screen-instructions') {
+        checkInstallCardVisibility();
+      }
+
+=======
+>>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
+      if (screenId === 'screen-ready') {
+        const viewBtn = document.getElementById('ready-view-button');
+        const viewCassette = document.getElementById('ready-view-cassette');
+        const viewCountdown = document.getElementById('ready-view-countdown');
+        
+        viewBtn.classList.add('hidden');
+        viewCassette.classList.add('hidden');
+        viewCountdown.classList.add('hidden');
+
+        if (AppState.secretMode === 'cassette') {
+          viewCassette.classList.remove('hidden');
+          startFrontOpticalSensor();
+        } else if (AppState.secretMode === 'timed') {
+          viewCountdown.classList.remove('hidden');
+          stopFrontOpticalSensor();
+          start3sInitialCountdown();
+        } else {
+          viewBtn.classList.remove('hidden');
+          stopFrontOpticalSensor();
+        }
+      }
+
+      if (screenId === 'screen-playing') {
+        const hintEl = document.getElementById('sensor-active-hint');
+        const timedBar = document.getElementById('timed-countdown-bar');
+        const methodIndicator = document.getElementById('playing-method-indicator');
+        const topPlaceholder = document.getElementById('playing-top-cassette-placeholder');
+        const revealBtnContainer = document.getElementById('container-reveal-btn');
+
+        if (AppState.secretMode === 'cassette') {
+          if (hintEl) hintEl.classList.remove('hidden');
+          if (timedBar) timedBar.classList.add('hidden');
+          if (topPlaceholder) topPlaceholder.classList.remove('hidden');
+          if (revealBtnContainer) revealBtnContainer.classList.add('hidden');
+          if (methodIndicator) methodIndicator.textContent = 'SENSOR ÓPTICO FRONTAL';
+          resetSensorHintToWaiting();
+          startFrontOpticalSensor();
+        } else if (AppState.secretMode === 'timed') {
+          if (hintEl) hintEl.classList.add('hidden');
+          if (timedBar) timedBar.classList.remove('hidden');
+          if (topPlaceholder) topPlaceholder.classList.add('hidden');
+          if (revealBtnContainer) revealBtnContainer.classList.remove('hidden');
+          if (methodIndicator) methodIndicator.textContent = `TEMPORIZADOR: ${AppState.roundDuration}s`;
+          stopFrontOpticalSensor();
+          initRoundCountdown();
+        } else {
+          if (hintEl) hintEl.classList.add('hidden');
+          if (timedBar) timedBar.classList.add('hidden');
+          if (topPlaceholder) topPlaceholder.classList.add('hidden');
+          if (revealBtnContainer) revealBtnContainer.classList.remove('hidden');
+          if (methodIndicator) methodIndicator.textContent = 'MODO PULSAR BOTÓN';
+          stopFrontOpticalSensor();
+        }
+      }
+
+      if (screenId !== 'screen-ready' && screenId !== 'screen-playing') {
+        stopFrontOpticalSensor();
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function selectPlaybackMode(mode) {
+      AppState.selectedMode = mode;
+      const label = document.getElementById('current-mode-label');
+      if (label) {
+        label.textContent = mode === 'best' ? 'MODO: EN LA MEJOR PARTE' : 'MODO: DESDE EL INICIO';
+      }
+      goToScreen('screen-scan');
+      startQrScanner();
+    }
+
+    // ========================================================
+    // 4. LÓGICA DE LA MODALIDAD CONTRARRELOJ
+    // ========================================================
+    function start3sInitialCountdown() {
+      AppState.countdown3sVal = 3;
+      const numberEl = document.getElementById('countdown-big-number');
+      if (numberEl) {
+        numberEl.textContent = '3';
+        numberEl.classList.remove('countdown-anim');
+        void numberEl.offsetWidth;
+        numberEl.classList.add('countdown-anim');
+      }
+
+      clearInterval(AppState.countdown3sInterval);
+      AppState.countdown3sInterval = setInterval(() => {
+        AppState.countdown3sVal--;
+        if (numberEl) {
+          numberEl.textContent = AppState.countdown3sVal > 0 ? AppState.countdown3sVal : '¡GO!';
+          numberEl.classList.remove('countdown-anim');
+          void numberEl.offsetWidth;
+          numberEl.classList.add('countdown-anim');
+        }
+        if (AppState.countdown3sVal <= 0) {
+          clearInterval(AppState.countdown3sInterval);
+          setTimeout(() => {
+            if (AppState.activeScreen === 'screen-ready') {
+              startPlayback();
+            }
+          }, 350);
+        }
+      }, 1000);
+    }
+
+    function skipCountdownAndStart() {
+      clearInterval(AppState.countdown3sInterval);
+      startPlayback();
+    }
+
+    function initRoundCountdown() {
+      AppState.roundRemainingSeconds = AppState.roundDuration;
+      updateTimedProgressBar();
+      clearInterval(AppState.timerInterval);
+      AppState.timerInterval = setInterval(() => {
+        if (AppState.isPlaying) {
+          AppState.playbackSeconds++;
+          AppState.roundRemainingSeconds--;
+          updateTimerDisplay();
+          updateTimedProgressBar();
+          if (AppState.roundRemainingSeconds <= 0) {
+            clearInterval(AppState.timerInterval);
+            revealSong();
+          }
+        }
+      }, 1000);
+    }
+
+    function updateTimedProgressBar() {
+      const leftEl = document.getElementById('timed-seconds-left');
+      const fillEl = document.getElementById('timed-progress-fill');
+      if (!leftEl || !fillEl) return;
+      const remaining = Math.max(0, AppState.roundRemainingSeconds);
+      leftEl.textContent = `${remaining}s`;
+      const pct = Math.max(0, Math.min(100, (remaining / AppState.roundDuration) * 100));
+      fillEl.style.width = `${pct}%`;
+
+      if (remaining <= 3) {
+        fillEl.className = 'h-full bg-rose-500 animate-pulse transition-all duration-1000 ease-linear';
+        leftEl.className = 'font-mono text-xl font-black text-rose-400 px-2 py-0.5 rounded bg-black/60 border border-rose-500/50 animate-bounce';
+      } else {
+        fillEl.className = 'h-full bg-gradient-to-r from-cyan-400 via-amber-400 to-rose-500 transition-all duration-1000 ease-linear';
+        leftEl.className = 'font-mono text-xl font-black text-[#fce01d] px-2 py-0.5 rounded bg-black/60 border border-amber-500/40';
+      }
+    }
+
+    // ========================================================
+    // 5. DETECTOR ÓPTICO (1.5S INICIO / 0.5S REVELADO)
+    // ========================================================
+    function startFrontOpticalSensor() {
+      if (AppState.frontStream) return;
+      
+      const video = document.getElementById('front-sensor-video');
+      const canvas = document.getElementById('front-sensor-canvas');
+      if (!video || !canvas) return;
+
+      const constraints = {
+        video: {
+          facingMode: "user",
+          width: { ideal: 64 },
+          height: { ideal: 64 }
+        },
+        audio: false
+      };
+
+      navigator.mediaDevices.getUserMedia(constraints).then(stream => {
+        AppState.frontStream = stream;
+        video.srcObject = stream;
+        video.play();
+        const ctx = canvas.getContext('2d');
+        clearInterval(AppState.frontSensorInterval);
+
+        AppState.frontSensorInterval = setInterval(() => {
+          if (!video.videoWidth) return;
+          ctx.drawImage(video, 0, 0, 32, 32);
+          const frame = ctx.getImageData(0, 0, 32, 32);
+          const data = frame.data;
+          let totalBrightness = 0;
+          for (let i = 0; i < data.length; i += 4) {
+            const r = data[i];
+            const g = data[i + 1];
+            const b = data[i + 2];
+            totalBrightness += (r * 0.299 + g * 0.587 + b * 0.114);
+          }
+          const avgBrightness = totalBrightness / (data.length / 4);
+          const dot = document.getElementById('front-sensor-dot');
+          const text = document.getElementById('front-sensor-text');
+
+          // CÁMARA TAPADA (< 32): Detección en 1.5s
+          if (avgBrightness < AppState.opticalDarkThreshold) {
+            if (AppState.uncoverTimer) {
+              clearTimeout(AppState.uncoverTimer);
+              AppState.uncoverTimer = null;
+              resetSensorHintToWaiting();
+            }
+            if (!AppState.isCovered) {
+              AppState.isCovered = true;
+              if (dot && text) {
+                dot.className = 'w-3 h-3 rounded-full bg-cyan-400 animate-pulse';
+                text.textContent = 'CASETE INSERTADO, NO MOVER';
+              }
+              clearTimeout(AppState.coverTimer);
+              AppState.coverTimer = setTimeout(() => {
+                if (AppState.isCovered && AppState.activeScreen === 'screen-ready') {
+                  startPlayback();
+                }
+              }, 1500);
+            }
+          } 
+          // CÁMARA DESTAPADA (> 44): Revelado en 0.5s
+          else if (avgBrightness > AppState.opticalLightThreshold) {
+            if (AppState.coverTimer) {
+              clearTimeout(AppState.coverTimer);
+              AppState.coverTimer = null;
+            }
+            if (AppState.isCovered) {
+              AppState.isCovered = false;
+              if (dot && text) {
+                dot.className = 'w-3 h-3 rounded-full bg-amber-400 animate-pulse';
+                text.textContent = 'ESPERANDO CASETE ARRIBA...';
+              }
+              if (AppState.activeScreen === 'screen-playing' && AppState.isPlaying) {
+                showSensorHintUncovered();
+                clearTimeout(AppState.uncoverTimer);
+                AppState.uncoverTimer = setTimeout(() => {
+                  if (!AppState.isCovered && AppState.activeScreen === 'screen-playing' && AppState.isPlaying) {
+                    revealSong();
+                  }
+                }, 500);
+              }
+            }
+          }
+        }, 100);
+      }).catch(err => {
+        console.warn('Cámara delantera no disponible para sensor óptico:', err);
+      });
+    }
+
+    function resetSensorHintToWaiting() {
+      const hintTitle = document.getElementById('sensor-hint-title');
+      const hintSub = document.getElementById('sensor-hint-subtitle');
+      const statusDot = document.getElementById('sensor-status-dot');
+      if (hintTitle && hintSub) {
+        hintTitle.textContent = 'CASETE INSERTADO, NO MOVER';
+        hintSub.textContent = 'RETIRA EL CASETE PARA REVELAR LA CANCIÓN';
+      }
+      if (statusDot) {
+        statusDot.className = 'w-3.5 h-3.5 rounded-full bg-cyan-400 animate-pulse';
+      }
+    }
+
+    function showSensorHintUncovered() {
+      const hintTitle = document.getElementById('sensor-hint-title');
+      const hintSub = document.getElementById('sensor-hint-subtitle');
+      const statusDot = document.getElementById('sensor-status-dot');
+      if (hintTitle && hintSub) {
+        hintTitle.textContent = '¡CASETE RETIRADO! DESVELANDO...';
+        hintSub.textContent = 'Vuelve a tapar si fue un accidente para cancelar';
+      }
+      if (statusDot) {
+        statusDot.className = 'w-3.5 h-3.5 rounded-full bg-[#fce01d] animate-ping';
+      }
+    }
+
+    function stopFrontOpticalSensor() {
+      clearInterval(AppState.frontSensorInterval);
+      clearTimeout(AppState.coverTimer);
+      clearTimeout(AppState.uncoverTimer);
+      if (AppState.frontStream) {
+        try {
+          AppState.frontStream.getTracks().forEach(track => track.stop());
+        } catch(e) {}
+        AppState.frontStream = null;
+      }
+    }
+
+    function handleScreenCovered() {
+      if (AppState.secretMode !== 'cassette') return;
+      AppState.isCovered = true;
+      if (AppState.activeScreen === 'screen-ready') {
+        startPlayback();
+      }
+    }
+
+    // ==========================================
+    // 6. MOTOR DE CÁMARA Y ESCÁNER QR TRASERO
+    // ==========================================
+    function startQrScanner() {
+      const loadingMsg = document.getElementById('camera-loading-msg');
+      if (loadingMsg) loadingMsg.classList.remove('hidden');
+
+      if (AppState.html5QrCode) {
+        try { AppState.html5QrCode.stop().catch(() => {}); } catch(e) {}
+      }
+      AppState.html5QrCode = new Html5Qrcode("qr-video-container");
+      
+      const config = {
+        fps: 24,
+        qrbox: { width: 250, height: 250 },
+        aspectRatio: 1.0,
+        experimentalFeatures: {
+          useBarCodeDetectorIfSupported: true
+        }
+      };
+
+      AppState.html5QrCode.start(
+        { facingMode: "environment" },
+        config,
+        (decodedText) => onQrCodeDetected(decodedText),
+        () => { if (loadingMsg) loadingMsg.classList.add('hidden'); }
+      ).catch(err => {
+        console.warn("Reintentando con cámara frontal:", err);
+        AppState.html5QrCode.start(
+          { facingMode: "user" },
+          config,
+          (decodedText) => onQrCodeDetected(decodedText),
+          () => { if (loadingMsg) loadingMsg.classList.add('hidden'); }
+        ).catch(e => {
+          console.error("Fallo definitivo de cámara:", e);
+          if (loadingMsg) {
+            loadingMsg.innerHTML = '<p class="text-xs text-rose-400 font-bold">Por favor permite acceso a la cámara en el navegador.</p>';
+          }
+        });
+      });
+    }
+
+    function stopCameraAndGo(targetScreen) {
+      if (AppState.html5QrCode) {
+        AppState.html5QrCode.stop().then(() => {
+          AppState.html5QrCode.clear();
+          goToScreen(targetScreen);
+        }).catch(() => {
+          goToScreen(targetScreen);
+        });
+      } else {
+        goToScreen(targetScreen);
+      }
+    }
+
+    function onQrCodeDetected(qrText) {
+      if (!qrText) return;
+      
+      if (AppState.html5QrCode) {
+        AppState.html5QrCode.stop().catch(() => {});
+      }
+
+      let foundSong = null;
+      if (typeof SONGS_DATABASE !== 'undefined' && Array.isArray(SONGS_DATABASE)) {
+        const clean = qrText.trim();
+        foundSong = SONGS_DATABASE.find(s => {
+          if (s.ytid && clean.includes(s.ytid)) return true;
+          if (s.id && clean === s.id) return true;
+          if (s.link && clean === s.link) return true;
+          return false;
+        });
+        if (foundSong) {
+          const tMatch = clean.match(/[?&]t=(\d+)/);
+          if (tMatch && tMatch[1]) {
+            foundSong.scannedTime = parseInt(tMatch[1], 10);
+          }
+        }
+      }
+
+      if (foundSong) {
+        setupSongForMatch(foundSong);
+      } else {
+        goToScreen('screen-invalid');
+      }
+    }
+
+    function setupSongForMatch(song) {
+      AppState.currentSong = song;
+      AppState.forwardUsedThisRound = false;
+      AppState.isCovered = false;
+
+      document.getElementById('revealed-title').textContent = song.title;
+      document.getElementById('revealed-artist').textContent = song.artist;
+      
+      const isSet2 = song.set === 'set-2';
+      const setBadgeText = isSet2 ? 'DALE PLAY: CANCIONES ANIMADAS' : 'DALE PLAY: CARA A';
+      const setBadgeColor = isSet2 ? 'bg-[#f8718a]' : 'bg-[#31c8c9]';
+      const setIconSrc = isSet2 ? 'assets/icono-animados.png' : 'assets/icono-cara-a.png';
+
+      const playingBadge = document.getElementById('playing-set-badge');
+      playingBadge.className = `w-full p-3 rounded-2xl ${setBadgeColor} text-white flex items-center justify-between shadow-lg`;
+
+      document.getElementById('playing-set-title').textContent = setBadgeText;
+      document.getElementById('revealed-set-text').textContent = setBadgeText;
+      document.getElementById('revealed-set-icon').src = setIconSrc;
+
+      const movieEl = document.getElementById('revealed-movie');
+      if (song.movie) {
+        movieEl.textContent = `Película: ${song.movie}`;
+        movieEl.classList.remove('hidden');
+      } else {
+        movieEl.classList.add('hidden');
+      }
+
+      const artImg = document.getElementById('revealed-album-art');
+      artImg.src = `https://img.youtube.com/vi/${song.ytid}/hqdefault.jpg`;
+
+      const btnFwd = document.getElementById('btn-forward-20');
+      btnFwd.disabled = false;
+      btnFwd.classList.remove('opacity-40', 'cursor-not-allowed');
+      document.getElementById('badge-forward-use').textContent = '1 USO X RONDA';
+
+      goToScreen('screen-ready');
+    }
+
+    // ==========================================
+    // 7. MOTOR DE AUDIO EMBEBIDO YOUTUBE API
+    // ==========================================
+    let ytPlayer = null;
+    (function loadYoutubeAPI() {
+      const tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    })();
+
+    function onYouTubeIframeAPIReady() {
+      ytPlayer = new YT.Player('yt-player', {
+        height: '200',
+        width: '200',
+        playerVars: {
+          'playsinline': 1,
+          'controls': 0,
+          'disablekb': 1,
+          'origin': window.location.origin
+        },
+        events: {
+          'onReady': () => console.log('YouTube Player listo'),
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerStateChange(event) {
+      if ((event.data === YT.PlayerState.PLAYING || event.data === YT.PlayerState.BUFFERING) && AppState.pendingSeekTime !== null) {
+        const timeToSeek = AppState.pendingSeekTime;
+        AppState.pendingSeekTime = null;
+        setTimeout(() => {
+          if (ytPlayer && ytPlayer.seekTo) {
+            ytPlayer.seekTo(timeToSeek, true);
+          }
+        }, 180);
+      }
+    }
+
+    function updateTimerDisplay() {
+      const timerEl = document.getElementById('playing-timer');
+      const mins = Math.floor(AppState.playbackSeconds / 60).toString().padStart(2, '0');
+      const secs = (AppState.playbackSeconds % 60).toString().padStart(2, '0');
+      if (timerEl) timerEl.textContent = `${mins}:${secs}`;
+    }
+
+    function startPlayback() {
+      if (!AppState.currentSong) return;
+      goToScreen('screen-playing');
+      AppState.isPlaying = true;
+
+      let startSeconds = 0;
+      if (AppState.selectedMode === 'best') {
+        if (AppState.currentSong.bestTime && Number(AppState.currentSong.bestTime) > 0) {
+          startSeconds = Number(AppState.currentSong.bestTime);
+        } else if (AppState.currentSong.scannedTime && Number(AppState.currentSong.scannedTime) > 0) {
+          startSeconds = Number(AppState.currentSong.scannedTime);
+        } else {
+          startSeconds = 35;
+        }
+      } else {
+        startSeconds = 0;
+      }
+
+      AppState.playbackSeconds = startSeconds;
+      AppState.pendingSeekTime = startSeconds > 0 ? startSeconds : null;
+      updateTimerDisplay();
+
+      if (ytPlayer && ytPlayer.loadVideoById) {
+        ytPlayer.loadVideoById({
+          videoId: AppState.currentSong.ytid,
+          startSeconds: startSeconds
+        });
+        ytPlayer.playVideo();
+        if (startSeconds > 0) {
+          setTimeout(() => {
+            if (ytPlayer && ytPlayer.seekTo) {
+              ytPlayer.seekTo(startSeconds, true);
+            }
+          }, 300);
+        }
+      }
+
+      const reelL = document.getElementById('reel-left');
+      const reelR = document.getElementById('reel-right');
+      if (reelL) reelL.classList.remove('spin-paused');
+      if (reelR) reelR.classList.remove('spin-paused');
+
+      if (AppState.secretMode !== 'timed') {
+        clearInterval(AppState.timerInterval);
+        AppState.timerInterval = setInterval(() => {
+          if (AppState.isPlaying) {
+            AppState.playbackSeconds++;
+            updateTimerDisplay();
+          }
+        }, 1000);
+      }
+    }
+
+    function forward20Seconds() {
+      if (AppState.forwardUsedEsteRonda || AppState.forwardUsedThisRound) return;
+      if (ytPlayer && ytPlayer.getCurrentTime) {
+        const current = ytPlayer.getCurrentTime();
+        ytPlayer.seekTo(current + 20, true);
+        AppState.playbackSeconds += 20;
+        
+        AppState.forwardUsedThisRound = true;
+        const btnFwd = document.getElementById('btn-forward-20');
+        btnFwd.disabled = true;
+        btnFwd.classList.add('opacity-40', 'cursor-not-allowed');
+        document.getElementById('badge-forward-use').textContent = 'USADO';
+      }
+    }
+
+    function revealSong() {
+      clearInterval(AppState.timerInterval);
+      clearInterval(AppState.countdown3sInterval);
+      clearTimeout(AppState.coverTimer);
+      clearTimeout(AppState.uncoverTimer);
+      AppState.isCovered = false;
+      stopFrontOpticalSensor();
+      goToScreen('screen-revealed');
+    }
+
+    function togglePlayback() {
+      if (!ytPlayer) return;
+      const pauseText = document.getElementById('text-pause-btn');
+      const pauseIcon = document.getElementById('icon-pause-btn');
+      const reelL = document.getElementById('reel-left');
+      const reelR = document.getElementById('reel-right');
+
+      if (AppState.isPlaying) {
+        ytPlayer.pauseVideo();
+        AppState.isPlaying = false;
+        pauseText.textContent = 'REANUDAR';
+        pauseIcon.setAttribute('data-lucide', 'play');
+        if (reelL) reelL.classList.add('spin-paused');
+        if (reelR) reelR.classList.add('spin-paused');
+      } else {
+        ytPlayer.playVideo();
+        AppState.isPlaying = true;
+        pauseText.textContent = 'PAUSAR';
+        pauseIcon.setAttribute('data-lucide', 'pause');
+        if (reelL) reelL.classList.remove('spin-paused');
+        if (reelR) reelR.classList.remove('spin-paused');
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function stopMusicAndGo(screenId) {
+      stopFrontOpticalSensor();
+      clearInterval(AppState.countdown3sInterval);
+
+      if (ytPlayer) {
+        try {
+          if (typeof ytPlayer.stopVideo === 'function') ytPlayer.stopVideo();
+          if (typeof ytPlayer.pauseVideo === 'function') ytPlayer.pauseVideo();
+        } catch(e) {}
+      }
+
+      AppState.isPlaying = false;
+      AppState.isCovered = false;
+      clearInterval(AppState.timerInterval);
+
+      const pauseText = document.getElementById('text-pause-btn');
+      if (pauseText) pauseText.textContent = 'PAUSAR';
+
+      if (screenId === 'screen-scan') {
+        goToScreen('screen-scan');
+        startQrScanner();
+      } else {
+        goToScreen(screenId);
+      }
+    }
+
+    // ==========================================
+    // 8. REGISTRO DE SERVICE WORKER CON ANTI-CACHÉ
+    // ==========================================
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register(`sw.js?v=${APP_VERSION}`, { updateViaCache: 'none' })
+          .then((reg) => {
+            reg.update();
+          })
+          .catch((err) => {
+            console.warn('SW Register:', err);
+          });
+      });
+    }
+  </script>
+</body>
+</html>

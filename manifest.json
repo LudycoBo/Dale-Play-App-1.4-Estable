@@ -1,0 +1,29 @@
+{
+  "name": "Dale Play - Companion App",
+  "short_name": "Dale Play",
+  "description": "Companion App Oficial del juego de mesa Dale Play",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#030712",
+  "theme_color": "#030712",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+<<<<<<< HEAD
+      "src": "icon-512.png",
+=======
+      "src": "apple-touch-icon.png",
+>>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
