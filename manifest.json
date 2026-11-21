@@ -16,11 +16,7 @@
       "purpose": "any maskable"
     },
     {
-<<<<<<< HEAD
       "src": "icon-512.png",
-=======
-      "src": "apple-touch-icon.png",
->>>>>>> 1e439774cfa277bdc1543df9f711643c5c8e3a29
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
